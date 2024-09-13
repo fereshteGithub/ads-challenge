@@ -30,7 +30,7 @@ spring.jpa.hibernate.ddl-auto=create
 
 Input Files
 
-Since input test files were not provided, I have created two sample files:
+Since input test files were not provided, I have created two sample files in /resource of project:
 
     click.json
     impression.json
