@@ -50,7 +50,6 @@ public class SecurityConfiguration {
                 .requestMatchers(new AntPathRequestMatcher("/api/auth/**")).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/api/main/ping")).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/api/main/time")).permitAll()
-                //.requestMatchers(new AntPathRequestMatcher("/api/test/*")).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/api/main/rest-test")).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/actuator/**")).permitAll()
                 .requestMatchers("/api/**").authenticated()

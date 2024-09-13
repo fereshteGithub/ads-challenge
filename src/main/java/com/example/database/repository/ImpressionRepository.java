@@ -6,6 +6,7 @@ import com.example.dto.GetAdvertiserInfoDto;
 import com.example.dto.GetInfoByCountryCodeAndAppId;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -24,8 +25,9 @@ public interface ImpressionRepository extends JpaRepository<Impression, UUID> {
             FROM Impression i
             join Click  c on c.impression=i
             group by  i.appId,i.countryCode
+            having i.appId=:appId and i.countryCode=:countryCode
             """)
-    public List<GetInfoByCountryCodeAndAppId> getInfoByCountryCodeAndAppId();
+    List<GetInfoByCountryCodeAndAppId> getInfoByCountryCodeAndAppId(@Param("countryCode") String countryCode, @Param("appId") Integer appId);
 
     @Query("SELECT new com.example.dto.GetAdvertiserInfoDto(i.appId, i.countryCode, SUM(c.revenue) ,i.advertiserId) " +
             "FROM Click c " +

@@ -41,8 +41,8 @@ public class ImpressionService {
     }
 
 
-    public List<GetInfoByCountryCodeAndAppId> getInfoByCountryCodeAndAppId() {
-        return impressionRepository.getInfoByCountryCodeAndAppId();
+    public List<GetInfoByCountryCodeAndAppId> getInfoByCountryCodeAndAppId(String countryCode,Integer appId) {
+        return impressionRepository.getInfoByCountryCodeAndAppId(countryCode,appId);
     }
 
     public List<GetTopAdvertiserDto> getTopAdvertisers() {
