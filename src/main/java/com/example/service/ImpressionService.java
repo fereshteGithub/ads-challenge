@@ -5,6 +5,7 @@ import com.example.dto.GetAdvertiserInfoDto;
 import com.example.dto.GetInfoByCountryCodeAndAppId;
 import com.example.dto.GetTopAdvertiserDto;
 import com.example.dto.ImpressionDto;
+import com.example.exception.BusinessException;
 import com.example.mapper.ImpressionMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -35,8 +36,7 @@ public class ImpressionService {
                     });
             impressionRepository.saveAll(impressionMapper.toImpression(impressions));
         } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Error processing file", e);
+            throw new BusinessException("error.processing.file");
         }
     }
 

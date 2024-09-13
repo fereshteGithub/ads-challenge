@@ -5,6 +5,7 @@ import com.example.database.entity.Click;
 import com.example.database.repository.ClickRepository;
 import com.example.database.repository.ImpressionRepository;
 import com.example.dto.ClickDto;
+import com.example.exception.BusinessException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -33,16 +34,17 @@ public class ClickService {
                     new TypeReference<>() {
                     });
 
-          List<Click>  clicks = clickDtoList.stream().map(clickDto -> Click.builder().
-                  revenue(clickDto.getRevenue())
-                  .impression(impressionRepository.findById(clickDto.getImpressionId()).orElseThrow()).build()).collect(Collectors.toList());
+            List<Click> clicks = clickDtoList.stream().map(clickDto -> Click.builder().
+                    revenue(clickDto.getRevenue())
+                    .impression(impressionRepository.findById(clickDto.getImpressionId()).
+                            orElseThrow(() -> new BusinessException("impression.not.found")))
+                    .build()).collect(Collectors.toList());
 
             clickRepository.saveAll(clicks);
 
 
         } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Error processing file", e);
+            throw new BusinessException("error.processing.file");
         }
 
     }

@@ -1,8 +1,6 @@
 package com.example.exception;
 
 
-
-
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
@@ -50,6 +48,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         List<String> errors = Collections.singletonList(this.messageSource.getMessage(ex.getMessage(), null, ex.getMessage(), locale));
         return getErrorsMap(errors);
     }
+
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public final Map<String, List<String>> handleRuntimeExceptions(RuntimeException ex, Locale locale) {
@@ -57,32 +56,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return getErrorsMap(errors);
     }
 
-//    @ExceptionHandler(NotFoundException.class)
-//    @ResponseStatus(HttpStatus.NOT_FOUND)
-//    public final Map<String, List<ExceptionErrorDto>> handleNotFoundException(NotFoundException ex, Locale locale) {
-//        return getErrorsMap(ex,locale);
-//    }
-//
-//    @ExceptionHandler(BadRequestException.class)
-//    @ResponseStatus(HttpStatus.BAD_REQUEST)
-//    @ResponseBody
-//    public Map<String, List<ExceptionErrorDto>> handleBadRequestException(BadRequestException ex, Locale locale) {
-//        return getErrorsMap(ex,locale);
-//    }
 
     private Map<String, List<String>> getErrorsMap(List<String> errors) {
         Map<String, List<String>> errorResponse = new HashMap<>();
         errorResponse.put("errors", new ArrayList<>(errors));
         return errorResponse;
     }
-//   private Map<String, List<ExceptionErrorDto>> getErrorsMap(BusinessException ex, Locale locale) {
-//        Map<String, List<ExceptionErrorDto>> errorResponse = new HashMap<>();
-//        String message = this.messageSource.getMessage(ex.getMessage(), null, ex.getMessage(), locale);
-//        errorResponse.put("errors", new ArrayList<>(){
-//            {
-//                add(new ExceptionErrorDto(ex.getCode(), message));
-//            }});
-//        return errorResponse;
-//    }
+
 
 }
